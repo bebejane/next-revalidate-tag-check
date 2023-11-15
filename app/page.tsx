@@ -1,6 +1,12 @@
 'use server'
 
+import { cache } from 'react'
 import styles from './page.module.css'
+
+const testCache = cache((opt?: any) => {
+  console.log('cache', opt?.t)
+  return Date.now()
+})
 
 export default async function Home() {
 
@@ -11,7 +17,7 @@ export default async function Home() {
     },
     next: {
       revalidate: 120,
-      tags: ['page']
+      tags: ['page', 'test', 'hello']
     }
   })
 
