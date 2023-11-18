@@ -24,6 +24,7 @@ export default async function Home() {
       ))}
       {start?.posts.length === 0 && 'No posts yet...'}
       <br />
+      <br />
       <a href="/revalidate?tags=start" target="_blank">Revalidate</a>
     </>
   )
