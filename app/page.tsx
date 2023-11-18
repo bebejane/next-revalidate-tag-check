@@ -12,8 +12,8 @@ export default async function Home() {
 
   return (
     <>
-      <h1>{start.headline}</h1>
-      {start.posts.map(post => (
+      <h1>{start?.headline}</h1>
+      {start?.posts.map(post => (
         <div className={s.post} key={post.id}>
           <Link href={`/posts/${post.slug}`}>
             <h3>
@@ -22,7 +22,7 @@ export default async function Home() {
           </Link>
         </div>
       ))}
-      {start.posts.length === 0 && 'No posts yet...'}
+      {start?.posts.length === 0 && 'No posts yet...'}
       <br />
       <a href="/revalidate?tags=start" target="_blank">Revalidate</a>
     </>
