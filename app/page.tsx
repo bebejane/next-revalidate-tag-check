@@ -8,7 +8,10 @@ import Link from 'next/link';
 
 export default async function Home() {
 
-  const { start, draftUrl } = await apiQuery<StartQuery, StartQueryVariables>(StartDocument, { tags: ['start'] });
+  const { start, draftUrl } = await apiQuery<StartQuery, StartQueryVariables>(StartDocument, {
+    revalidate: 10,
+    tags: ['start']
+  });
 
   return (
     <>
