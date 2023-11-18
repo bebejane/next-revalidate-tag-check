@@ -1,33 +1,30 @@
 'use server'
 
-import { cache } from 'react'
-import styles from './page.module.css'
-
-const getData = cache(async (): Promise<any> => {
-  const res = await fetch('https://random-data-api.com/api/v2/users?response_type=json', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    next: {
-      revalidate: 120,
-      tags: ['page', 'test', 'hello']
-    }
-  })
-  return res.json()
-})
+import s from './page.module.css'
+import { apiQuery } from 'next-dato-utils'
+import { StartDocument } from '@/graphql';
+import { Image } from 'react-datocms';
+import Link from 'next/link';
 
 export default async function Home() {
 
-  const data = await getData()
+  const { start, draftUrl } = await apiQuery<StartQuery, StartQueryVariables>(StartDocument, { tags: ['start'] });
 
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        {data.username}
-      </div>
+    <>
+      <h1>{start.headline}</h1>
+      {start.posts.map(post => (
+        <div className={s.post} key={post.id}>
+          <Link href={`/posts/${post.slug}`}>
+            <h3>
+              {post.title}
+            </h3>
+          </Link>
+        </div>
+      ))}
+      {start.posts.length === 0 && 'No posts yet...'}
       <br />
-      <a href="/revalidate?tags=page" target="_blank">Revalidate</a>
-    </main>
+      <a href="/revalidate?tags=start" target="_blank">Revalidate</a>
+    </>
   )
 }
