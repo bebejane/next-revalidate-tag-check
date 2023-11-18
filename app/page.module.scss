@@ -1,17 +1,20 @@
 .post {
   display: block;
   padding-bottom: 2em;
+  max-width: 200px;
 }
 
 .image {
   width: 150px !important;
-  max-width: 150px;
+  max-width: 150px !important;
   height: 150px !important;
   margin-bottom: 0.3em;
+  object-fit: contain;
 
   .picture {
-    object-fit: cover;
+    max-width: 200px;
   }
+
 }
 
 
