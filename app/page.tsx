@@ -26,6 +26,7 @@ export default async function Home() {
       <div className={styles.description}>
         {data.username}
       </div>
+      <br />
       <a href="/revalidate?tags=page" target="_blank">Revalidate</a>
     </main>
   )
