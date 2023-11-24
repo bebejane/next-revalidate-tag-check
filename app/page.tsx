@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 export default async function Home() {
 
-  const tags = new Array(75).fill(0).map(tag => `tag-${Math.floor(Math.random() * 10000)}`);
+  const tags = new Array(100).fill(0).map(tag => `tag-${Math.floor(Math.random() * 10000)}`);
   console.log('tags', tags.length, tags.join('').length)
   const { start, draftUrl } = await apiQuery<StartQuery, StartQueryVariables>(StartDocument, {
     revalidate: 10,
@@ -19,26 +19,8 @@ export default async function Home() {
 
   return (
     <>
-      <a href="/revalidate?tags=start" target="_blank">Revalidate</a>
-      <br />
-      <br />
+      <h1>Start</h1>
 
-      {start?.posts.map(post => (
-        <div className={s.post} key={post.id}>
-          <Link href={`/posts/${post.slug}`}>
-            <h3>
-              {post.title}
-            </h3>
-          </Link>
-          {post?.image?.responsiveImage &&
-            <Image
-              data={post?.image?.responsiveImage}
-              className={s.image}
-              pictureClassName={s.picture}
-            />
-          }
-        </div>
-      ))}
       {start?.posts.length === 0 && 'No posts yet...'}
 
     </>
