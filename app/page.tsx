@@ -8,8 +8,8 @@ import Link from 'next/link';
 
 export default async function Home() {
 
-  const tags = new Array(60).fill(0).map(tag => `tag-${Math.floor(Math.random() * 10000)}`);
-  console.log('tags', tags.length)
+  const tags = new Array(70).fill(0).map(tag => `tag-${Math.floor(Math.random() * 10000)}`);
+  console.log('tags', tags.length, tags.join('').length)
   const { start, draftUrl } = await apiQuery<StartQuery, StartQueryVariables>(StartDocument, {
     revalidate: 10,
     generateTags: false,
