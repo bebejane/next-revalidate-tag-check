@@ -1,15 +1,7 @@
-'use server'
-
-import s from './page.module.scss'
-import { apiQuery } from 'next-dato-utils'
-import { StartDocument } from '@/graphql';
-import { Image } from 'react-datocms';
-import Link from 'next/link';
-
 export default async function Home() {
 
-  const tags = new Array(100).fill(0).map(tag => `tag-${Math.floor(Math.random() * 10000)}`);
-  console.log('tags', tags.length, tags.join('').length)
+  const count = 100
+  const tags = new Array(count).fill(0).map((_, i) => `tag-${i}`);
   const res = await fetch('https://dummyjson.com/posts', {
     next: {
       revalidate: 10,
@@ -17,12 +9,18 @@ export default async function Home() {
     }
   });
 
+  const { posts } = await res.json();
+
   return (
     <>
-      <h1>Start</h1>
-
-
-
+      <h1>Tags</h1>
+      <ul>
+        {tags.map(tag => <li key={tag}>{tag}</li>)}
+      </ul>
+      <h1>Posts</h1>
+      <ul>
+        {posts.map((post: any) => <li key={post.id}>{post.title}</li>)}
+      </ul>
     </>
   )
 }
