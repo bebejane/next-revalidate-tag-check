@@ -8,9 +8,11 @@ import Link from 'next/link';
 
 export default async function Home() {
 
+  const tags = new Array(100).fill(0).map(tag => `tag-${Math.floor(Math.random() * 10000)}`);
   const { start, draftUrl } = await apiQuery<StartQuery, StartQueryVariables>(StartDocument, {
     revalidate: 10,
-    tags: ['start']
+    tags: ['start', ...tags],
+    logs: true
   });
 
   return (
