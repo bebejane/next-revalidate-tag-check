@@ -1,6 +1,6 @@
 export default async function Home() {
 
-  const count = 10
+  const count = 100
   const tags = new Array(count).fill(0).map((_, i) => `tag-${i}`);
   const res = await fetch('https://dummyjson.com/posts', {
     next: {
